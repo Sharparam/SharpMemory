@@ -102,6 +102,14 @@ public class FieldModel {
         return count;
     }
 
+    public int getClearedCount() {
+        int count = 0;
+        for (BrickModel brick : bricks)
+            if (brick.isCleared())
+                count++;
+        return count;
+    }
+
     public void flipBrick(BrickModel brick) {
         if (brick.isCleared() || brick.getState() == State.FACE_UP || brick.getState() == State.INVALID)
             return;
@@ -130,6 +138,8 @@ public class FieldModel {
         BrickModel b = facedUp.get(1);
         clearIfMatch(a, b);
         resetBrickStates();
+        if (getClearedCount() == getBrickCount())
+            sendEvent(FieldEventType.ALL_BRICKS_CLEARED);
     }
 
     public void resetBrickStates() {

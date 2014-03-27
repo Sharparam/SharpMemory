@@ -26,11 +26,10 @@ import java.util.ResourceBundle;
  */
 public class GameController implements Initializable {
     private static final double IMAGE_SIZE = 64.0;
-
     private int points = 0;
+    private int tries = 0;
 
     private FieldModel field;
-
     @FXML
     private GridPane window;
 
@@ -38,7 +37,13 @@ public class GameController implements Initializable {
     private Text pointsText;
 
     @FXML
+    private Text triesText;
+
+    @FXML
     private Text timeText;
+
+    @FXML
+    private Text gameOverText;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,6 +53,7 @@ public class GameController implements Initializable {
             public void handle(FieldEventType type) {
                 switch (type) {
                     case TRY:
+                        tries++;
                         break;
                     case CLEAR:
                         points++;
@@ -55,10 +61,12 @@ public class GameController implements Initializable {
                     case FAIL:
                         break;
                     case ALL_BRICKS_CLEARED:
+                        gameOverText.setVisible(true);
                         break;
                 }
 
                 pointsText.setText("Points: " + points);
+                triesText.setText("Tries: " + tries);
             }
         });
         for (int i = 0; i < field.getBrickCount(); i++) {
@@ -75,7 +83,12 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    protected void handleQuitButtonAction(ActionEvent event) {
+    protected void handleMenuButtonAction(ActionEvent actionEvent) {
         SharpMemory.getInstance().showMenu();
+    }
+
+    @FXML
+    protected void handleQuitButtonAction(ActionEvent event) {
+
     }
 }

@@ -14,4 +14,9 @@ public class MenuController {
     protected void handleStartButtonAction(ActionEvent event) {
         SharpMemory.getInstance().showGame();
     }
+
+    @FXML
+    protected void handleQuitButtonAction(ActionEvent event) {
+
+    }
 }

@@ -8,35 +8,19 @@
 <GridPane fx:controller="com.sharparam.sharpmemory.controllers.GameController"
     xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10"
     fx:id="window">
+
     <Text id="points" fx:id="pointsText" text="Points: 0"
         GridPane.columnIndex="0" GridPane.rowIndex="0" />
-    <Text id="time" fx:id="timeText" text="00:00"
+    <Text id="tries" fx:id="triesText" text="Tries: 0"
         GridPane.columnIndex="1" GridPane.rowIndex="0" />
-    <Button id="quit" text="Quit game" onAction="#handleQuitButtonAction"
+    <Text id="time" fx:id="timeText" text="00:00"
         GridPane.columnIndex="2" GridPane.rowIndex="0" />
-
-    <!--
-    <ImageView fx:id="image0" fitWidth="64" fitHeight="64"
-        GridPane.columnIndex="0" GridPane.rowIndex="1" />
-    <ImageView fx:id="image1" fitWidth="64" fitHeight="64"
-        GridPane.columnIndex="1" GridPane.rowIndex="1" />
-    <ImageView fx:id="image2" fitWidth="64" fitHeight="64"
-        GridPane.columnIndex="2" GridPane.rowIndex="1" />
-    <ImageView fx:id="image3" fitWidth="64" fitHeight="64"
-        GridPane.columnIndex="3" GridPane.rowIndex="1" />
-    <ImageView fx:id="image4" fitWidth="64" fitHeight="64"
-        GridPane.columnIndex="4" GridPane.rowIndex="1" />
-    <ImageView fx:id="image5" fitWidth="64" fitHeight="64"
-        GridPane.columnIndex="0" GridPane.rowIndex="2" />
-    <ImageView fx:id="image6" fitWidth="64" fitHeight="64"
-        GridPane.columnIndex="1" GridPane.rowIndex="2" />
-    <ImageView fx:id="image7" fitWidth="64" fitHeight="64"
-        GridPane.columnIndex="2" GridPane.rowIndex="2" />
-    <ImageView fx:id="image8" fitWidth="64" fitHeight="64"
-        GridPane.columnIndex="3" GridPane.rowIndex="2" />
-    <ImageView fx:id="image9" fitWidth="64" fitHeight="64"
-        GridPane.columnIndex="4" GridPane.rowIndex="2" />
-    -->
+    <Button id="menu" text="Menu" onAction="#handleMenuButtonAction"
+        GridPane.columnIndex="3" GridPane.rowIndex="0" />
+    <Button id="quit" text="Quit game" onAction="#handleQuitButtonAction"
+        GridPane.columnIndex="4" GridPane.rowIndex="0" />
+    <Text id="game-over" fx:id="gameOverText" text="Game Over!" visible="false"
+        GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="5" />
 
     <stylesheets>
         <URL value="@../styles/game.css" />

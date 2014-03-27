@@ -12,8 +12,10 @@
     </padding>
     <Text text="Welcome to SharpMemory! Set your options..."
         GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" />
-    <Button text="Start memory!" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2"
+    <Button text="Start memory!" GridPane.columnIndex="0" GridPane.rowIndex="1"
         onAction="#handleStartButtonAction" />
+    <Button text="Quit game" GridPane.columnIndex="1" GridPane.rowIndex="1"
+        onAction="#handleQuitButtonAction" />
 
     <stylesheets>
         <URL value="@../styles/menu.css" />
