@@ -57,6 +57,7 @@ public class GameController implements Initializable {
                     case ALL_BRICKS_CLEARED:
                         break;
                 }
+
                 pointsText.setText("Points: " + points);
             }
         });
