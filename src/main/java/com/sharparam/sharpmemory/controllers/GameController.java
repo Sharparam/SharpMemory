@@ -75,6 +75,8 @@ public class GameController implements Initializable {
             imageView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
                 @Override
                 public void handle(javafx.scene.input.MouseEvent mouseEvent) {
+                    if (field.isTryInProgress())
+                        return;
                     field.flipBrick(brick);
                 }
             });

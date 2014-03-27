@@ -8,8 +8,9 @@ import com.sharparam.sharpmemory.helpers.BrickHelper;
 import com.sharparam.sharpmemory.helpers.RandomHelper;
 import javafx.scene.image.Image;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by on 2014-03-27.
@@ -17,9 +18,15 @@ import java.util.ArrayList;
  * @author Sharparam
  */
 public class FieldModel {
+    private static final int TRY_DELAY = 1000;
+
     private final ArrayList<FieldEventListener> fieldEventListeners = new ArrayList<FieldEventListener>();
 
+    private final Timer tryTimer = new Timer();
+
     private BrickModel[] bricks;
+
+    private boolean tryInProgress = false;
 
     public FieldModel(BrickModel[] bricks) {
         this.bricks = bricks;
@@ -36,11 +43,15 @@ public class FieldModel {
         randomizeBricks();
     }
 
+    public boolean isTryInProgress() {
+        return tryInProgress;
+    }
+
     public void addEventListener(FieldEventListener listener) {
         fieldEventListeners.add(listener);
     }
 
-    public void sendEvent(FieldEventType type) {
+    private void sendEvent(FieldEventType type) {
         for (FieldEventListener listener : fieldEventListeners)
             listener.handle(type);
     }
@@ -127,6 +138,7 @@ public class FieldModel {
     public void checkBricks() {
         if (getFacedUpCount() < 2)
             return;
+
         ArrayList<BrickModel> facedUp = new ArrayList<BrickModel>();
         for (BrickModel brick : bricks)
             if (brick.getState() == State.FACE_UP)
@@ -136,18 +148,29 @@ public class FieldModel {
             return;
         }
 
-        BrickModel a = facedUp.get(0);
-        BrickModel b = facedUp.get(1);
-        clearIfMatch(a, b);
-        resetBrickStates();
-        if (getClearedCount() == getBrickCount())
-            sendEvent(FieldEventType.ALL_BRICKS_CLEARED);
+        if (tryInProgress)
+            return;
+
+        tryInProgress = true;
+
+        final BrickModel a = facedUp.get(0);
+        final BrickModel b = facedUp.get(1);
+        tryTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                clearIfMatch(a, b);
+                resetBrickStates();
+                if (getClearedCount() == getBrickCount())
+                    sendEvent(FieldEventType.ALL_BRICKS_CLEARED);
+            }
+        }, TRY_DELAY);
     }
 
     public void resetBrickStates() {
         for (BrickModel brick : bricks)
             if (!brick.isCleared())
                 brick.faceDown();
+        tryInProgress = false;
     }
 
     private void randomizeBricks() {
