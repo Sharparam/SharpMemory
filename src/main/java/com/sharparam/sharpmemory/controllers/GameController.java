@@ -2,6 +2,8 @@ package com.sharparam.sharpmemory.controllers;
 
 import com.sharparam.sharpmemory.SharpMemory;
 import com.sharparam.sharpmemory.State;
+import com.sharparam.sharpmemory.events.FieldEventListener;
+import com.sharparam.sharpmemory.events.FieldEventType;
 import com.sharparam.sharpmemory.models.BrickModel;
 import com.sharparam.sharpmemory.models.FieldModel;
 import javafx.event.ActionEvent;
@@ -29,8 +31,6 @@ public class GameController implements Initializable {
 
     private FieldModel field;
 
-    private BrickModel[] bricks;
-
     @FXML
     private GridPane window;
 
@@ -43,10 +43,33 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         field = new FieldModel(5);
-        bricks = new BrickModel[10];
-        for (int i = 0; i < bricks.length; i++) {
-            bricks[i] = new BrickModel("http://placekitten.com/64/64");
-            window.add(bricks[i].getImageView(), i < 5 ? i : i - 5, i < 5 ? 1 : 2);
+        field.addEventListener(new FieldEventListener() {
+            @Override
+            public void handle(FieldEventType type) {
+                switch (type) {
+                    case TRY:
+                        break;
+                    case CLEAR:
+                        points++;
+                        break;
+                    case FAIL:
+                        break;
+                    case ALL_BRICKS_CLEARED:
+                        break;
+                }
+                pointsText.setText("Points: " + points);
+            }
+        });
+        for (int i = 0; i < field.getBrickCount(); i++) {
+            final BrickModel brick = field.getBrick(i);
+            final ImageView imageView = brick.getImageView();
+            imageView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+                @Override
+                public void handle(javafx.scene.input.MouseEvent mouseEvent) {
+                    field.flipBrick(brick);
+                }
+            });
+            window.add(imageView, i < 5 ? i : i - 5, i < 5 ? 1 : 2);
         }
     }
 

@@ -1,6 +1,11 @@
 package com.sharparam.sharpmemory.models;
 
+import com.sharparam.sharpmemory.Difficulty;
 import com.sharparam.sharpmemory.State;
+import com.sharparam.sharpmemory.events.FieldEventListener;
+import com.sharparam.sharpmemory.events.FieldEventType;
+import com.sharparam.sharpmemory.helpers.BrickHelper;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
@@ -10,6 +15,8 @@ import java.util.ArrayList;
  * @author Sharparam
  */
 public class FieldModel {
+    private final ArrayList<FieldEventListener> fieldEventListeners = new ArrayList<FieldEventListener>();
+
     private BrickModel[] bricks;
 
     public FieldModel(BrickModel[] bricks) {
@@ -25,6 +32,15 @@ public class FieldModel {
         // this has to be doubled because each one has a dupe
         bricks = new BrickModel[brickCount * 2];
         randomizeBricks();
+    }
+
+    public void addEventListener(FieldEventListener listener) {
+        fieldEventListeners.add(listener);
+    }
+
+    public void sendEvent(FieldEventType type) {
+        for (FieldEventListener listener : fieldEventListeners)
+            listener.handle(type);
     }
 
     public boolean hasBrick(int index) {
@@ -66,11 +82,16 @@ public class FieldModel {
     }
 
     public void clearIfMatch(BrickModel a, BrickModel b) {
-        if (!isMatch(a, b))
+        sendEvent(FieldEventType.TRY);
+
+        if (!isMatch(a, b)) {
+            sendEvent(FieldEventType.FAIL);
             return;
+        }
 
         clearBrick(a);
         clearBrick(b); // Just to be on the safe side, but this is probably redundant.
+        sendEvent(FieldEventType.CLEAR);
     }
 
     public int getFacedUpCount() {
@@ -82,7 +103,7 @@ public class FieldModel {
     }
 
     public void flipBrick(BrickModel brick) {
-        if (brick.isCleared() || brick.getState() == State.INVALID)
+        if (brick.isCleared() || brick.getState() == State.FACE_UP || brick.getState() == State.INVALID)
             return;
         brick.flip();
         checkBricks();
@@ -108,14 +129,29 @@ public class FieldModel {
         BrickModel a = facedUp.get(0);
         BrickModel b = facedUp.get(1);
         clearIfMatch(a, b);
+        resetBrickStates();
     }
 
     public void resetBrickStates() {
         for (BrickModel brick : bricks)
-            brick.faceDown();
+            if (!brick.isCleared())
+                brick.faceDown();
     }
 
     private void randomizeBricks() {
+        randomizeBricks(Difficulty.EASY);
+    }
 
+    private void randomizeBricks(Difficulty diff) {
+        Image[] images = new Image[] {
+                BrickHelper.getImage("/images/easy/blue.png"),
+                BrickHelper.getImage("/images/easy/green.png"),
+                BrickHelper.getImage("/images/easy/pink.png"),
+                BrickHelper.getImage("/images/easy/red.png"),
+                BrickHelper.getImage("/images/easy/yellow.png")
+        };
+
+        for (int i = 0; i < bricks.length; i++)
+            bricks[i] = new BrickModel(images[i < 5 ? i : i - 5]);
     }
 }

@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class BrickModel {
     private static final Image FACE_DOWN_IMAGE = BrickHelper.getImage("http://placehold.it/64x64");
+    private static final Image CLEARED_IMAGE = BrickHelper.getImage("/images/transparent.png");
 
     private final Image faceUpImage;
 
@@ -29,12 +30,12 @@ public class BrickModel {
         this.image = image;
         imageView = BrickHelper.createImageView(FACE_DOWN_IMAGE);
 
-        imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        /*imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent mouseEvent) {
                 faceUp();
             }
-        });
+        });*/
     }
 
     public BrickModel(State state, String imageSource) {
@@ -103,6 +104,7 @@ public class BrickModel {
 
     public void clear() {
         setState(State.CLEARED);
+        updateImage();
     }
 
     @Override
@@ -114,7 +116,13 @@ public class BrickModel {
     }
 
     private void updateImage() {
-        image = getState() == State.FACE_UP ? getFaceUpImage() : getFaceDownImage();
+        if (isCleared())
+            image = CLEARED_IMAGE;
+        else if (getState() == State.FACE_UP)
+            image = faceUpImage;
+        else
+            image = FACE_DOWN_IMAGE;
+
         imageView.setImage(image);
     }
 }
