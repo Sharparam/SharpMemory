@@ -10,7 +10,7 @@
     <padding>
         <Insets top="25" right="25" bottom="10" left="25"/>
     </padding>
-    <Text text="Welcome to SharpMemory! Set your options..."
+    <Text text="Welcome to SharpMemory! Set your options..." id="welcome"
         GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" />
     <Button text="Start memory!" GridPane.columnIndex="0" GridPane.rowIndex="1"
         onAction="#handleStartButtonAction" />
