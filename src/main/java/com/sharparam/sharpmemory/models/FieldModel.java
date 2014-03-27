@@ -5,8 +5,10 @@ import com.sharparam.sharpmemory.State;
 import com.sharparam.sharpmemory.events.FieldEventListener;
 import com.sharparam.sharpmemory.events.FieldEventType;
 import com.sharparam.sharpmemory.helpers.BrickHelper;
+import com.sharparam.sharpmemory.helpers.RandomHelper;
 import javafx.scene.image.Image;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -153,6 +155,14 @@ public class FieldModel {
     }
 
     private void randomizeBricks(Difficulty diff) {
+        switch (diff) {
+            default:
+                randomizeEasyBricks();
+                break;
+        }
+    }
+
+    private void randomizeEasyBricks() {
         Image[] images = new Image[] {
                 BrickHelper.getImage("/images/easy/blue.png"),
                 BrickHelper.getImage("/images/easy/green.png"),
@@ -161,7 +171,31 @@ public class FieldModel {
                 BrickHelper.getImage("/images/easy/yellow.png")
         };
 
+        Image[] temp = new Image[images.length * 2];
+        for (int i = 0; i < images.length; i++) {
+            Image image = images[i];
+            temp[i] = image;
+            temp[i + images.length] = image;
+        }
+
+        images = temp;
+
+        randomizeImages(images);
+
         for (int i = 0; i < bricks.length; i++)
-            bricks[i] = new BrickModel(images[i < 5 ? i : i - 5]);
+            bricks[i] = new BrickModel(images[i]);
+    }
+
+    private void randomizeImages(Image[] images)
+    {
+        int index;
+        Image temp;
+        for (int i = images.length - 1; i > 0; i--)
+        {
+            index = RandomHelper.RNG.nextInt(i + 1);
+            temp = images[index];
+            images[index] = images[i];
+            images[i] = temp;
+        }
     }
 }
