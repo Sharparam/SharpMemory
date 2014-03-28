@@ -1,6 +1,7 @@
 package com.sharparam.sharpmemory.models;
 
 import com.sharparam.sharpmemory.Difficulty;
+import com.sharparam.sharpmemory.SharpMemory;
 import com.sharparam.sharpmemory.State;
 import com.sharparam.sharpmemory.events.FieldEventListener;
 import com.sharparam.sharpmemory.events.FieldEventType;
@@ -9,6 +10,7 @@ import com.sharparam.sharpmemory.helpers.RandomHelper;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,6 +21,14 @@ import java.util.TimerTask;
  */
 public class FieldModel {
     private static final int TRY_DELAY = 1000;
+
+    private static final HashMap<Difficulty, Integer> DIFF_MODIFIERS = new HashMap<Difficulty, Integer>(3) {
+        {
+            put(Difficulty.EASY, 1);
+            put(Difficulty.MEDIUM, 2);
+            put(Difficulty.HARD, 3);
+        }
+    };
 
     private final ArrayList<FieldEventListener> fieldEventListeners = new ArrayList<FieldEventListener>();
 
@@ -36,11 +46,16 @@ public class FieldModel {
         this.bricks = (BrickModel[]) bricks.toArray();
     }
 
+    public FieldModel() {
+        this(5);
+    }
+
     public FieldModel(int brickCount) {
         // brickCount is the number of UNIQUE bricks
         // this has to be doubled because each one has a dupe
-        bricks = new BrickModel[brickCount * 2];
-        randomizeBricks();
+        Difficulty diff = SharpMemory.getInstance().getDifficulty();
+        bricks = new BrickModel[brickCount * 2 * DIFF_MODIFIERS.get(diff)];
+        randomizeBricks(diff);
     }
 
     public boolean isTryInProgress() {
@@ -184,30 +199,20 @@ public class FieldModel {
     }
 
     private void randomizeBricks(Difficulty diff) {
-        switch (diff) {
-            default:
-                randomizeEasyBricks();
-                break;
-        }
+        String diffString = diff.toString().toLowerCase();
+        randomizeBricks(diffString);
     }
 
-    private void randomizeEasyBricks() {
-        Image[] images = new Image[] {
-                BrickHelper.getImage("/images/easy/blue.png"),
-                BrickHelper.getImage("/images/easy/green.png"),
-                BrickHelper.getImage("/images/easy/pink.png"),
-                BrickHelper.getImage("/images/easy/red.png"),
-                BrickHelper.getImage("/images/easy/yellow.png")
-        };
+    private void randomizeBricks(String diff) {
+        Image[] images = new Image[getBrickCount()];
 
-        Image[] temp = new Image[images.length * 2];
-        for (int i = 0; i < images.length; i++) {
-            Image image = images[i];
-            temp[i] = image;
-            temp[i + images.length] = image;
+        int halfCount = getBrickCount() / 2;
+
+        for (int i = 0; i < halfCount; i++) {
+            Image image = BrickHelper.getImage("/images/" + diff + "/" + i + ".png");
+            images[i] = image;
+            images[i + halfCount] = image;
         }
-
-        images = temp;
 
         randomizeImages(images);
 
