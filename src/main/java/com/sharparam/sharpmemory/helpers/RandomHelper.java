@@ -7,6 +7,6 @@ import java.util.Random;
  *
  * @author Sharparam
  */
-public class RandomHelper {
+public final class RandomHelper {
     public static final Random RNG = new Random();
 }
