@@ -22,7 +22,7 @@ public class FieldModel {
 
     private final ArrayList<FieldEventListener> fieldEventListeners = new ArrayList<FieldEventListener>();
 
-    private final Timer tryTimer = new Timer();
+    private Timer tryTimer;
 
     private BrickModel[] bricks;
 
@@ -155,6 +155,10 @@ public class FieldModel {
 
         final BrickModel a = facedUp.get(0);
         final BrickModel b = facedUp.get(1);
+
+        // Workaround to make application close properly
+        if (tryTimer == null)
+            tryTimer = new Timer();
         tryTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -162,6 +166,8 @@ public class FieldModel {
                 resetBrickStates();
                 if (getClearedCount() == getBrickCount())
                     sendEvent(FieldEventType.ALL_BRICKS_CLEARED);
+                tryTimer.cancel();
+                tryTimer = null;
             }
         }, TRY_DELAY);
     }

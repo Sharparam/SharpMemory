@@ -6,6 +6,7 @@ import com.sharparam.sharpmemory.events.FieldEventListener;
 import com.sharparam.sharpmemory.events.FieldEventType;
 import com.sharparam.sharpmemory.models.BrickModel;
 import com.sharparam.sharpmemory.models.FieldModel;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,6 +19,8 @@ import javafx.scene.text.Text;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by on 2014-03-27.
@@ -91,6 +94,6 @@ public class GameController implements Initializable {
 
     @FXML
     protected void handleQuitButtonAction(ActionEvent event) {
-
+        Platform.exit();
     }
 }

@@ -52,7 +52,7 @@ public class SharpMemory extends Application {
         Parent page = FXMLLoader.load(SharpMemory.class.getResource("/views/" + fxml + ".fxml"), null, new JavaFXBuilderFactory());
         Scene scene = stage.getScene();
         if (scene == null) {
-            scene = new Scene(page, 500, 300);
+            scene = new Scene(page, 600, 400);
             //scene.getStylesheets().add(SharpMemory.class.getResource("/views/sample.css").toExternalForm());
             stage.setScene(scene);
         } else {
