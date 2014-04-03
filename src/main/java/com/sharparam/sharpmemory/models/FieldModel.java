@@ -170,18 +170,6 @@ public class FieldModel {
     }
 
     /**
-     * Checks if two bricks match each other.
-     * @param a Brick A.
-     * @param b Brick B.
-     * @return True if they match, false otherwise.
-     * @deprecated Use the equals method on BrickModel.
-     */
-    @Deprecated
-    public boolean isMatch(BrickModel a, BrickModel b) {
-        return a.getImage() == b.getImage();
-    }
-
-    /**
      * This removes the specified BrickModel and it's dupe version.
      * @param brick The BrickModel object to remove.
      */
@@ -199,7 +187,7 @@ public class FieldModel {
     public void clearIfMatch(BrickModel a, BrickModel b) {
         sendEvent(FieldEventType.TRY);
 
-        if (!isMatch(a, b)) {
+        if (!a.equals(b)) {
             sendEvent(FieldEventType.FAIL);
             return;
         }
