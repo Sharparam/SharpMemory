@@ -3,10 +3,15 @@ package com.sharparam.sharpmemory.helpers;
 import java.util.Random;
 
 /**
- * Created by on 2014-03-27.
+ * Helper functions for RNG.
+ *
+ * Created on 2014-03-27.
  *
  * @author Sharparam
  */
 public final class RandomHelper {
+    /**
+     * Application-wide Random instance.
+     */
     public static final Random RNG = new Random();
 }
