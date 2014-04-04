@@ -6,10 +6,7 @@ import com.sharparam.sharpmemory.events.FieldEventType;
 import com.sharparam.sharpmemory.models.BrickModel;
 import com.sharparam.sharpmemory.models.FieldModel;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
@@ -183,20 +180,18 @@ public class GameController implements Initializable {
 
     /**
      * Handler method for the menu button.
-     * @param actionEvent Action event.
      */
     @FXML
-    protected void handleMenuButtonAction(ActionEvent actionEvent) {
+    protected void handleMenuButtonAction() {
         cancelGame();
         SharpMemory.getInstance().showMenu();
     }
 
     /**
      * Handler method for the quit button.
-     * @param event Action event.
      */
     @FXML
-    protected void handleQuitButtonAction(ActionEvent event) {
+    protected void handleQuitButtonAction() {
         cancelGame();
         Platform.exit();
     }

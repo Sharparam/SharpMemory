@@ -2,10 +2,8 @@ package com.sharparam.sharpmemory.models;
 
 import com.sharparam.sharpmemory.State;
 import com.sharparam.sharpmemory.helpers.BrickHelper;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 /**
  * Model for a memory brick.
@@ -48,7 +46,7 @@ public class BrickModel {
     /**
      * Initializes a new instance of this BrickModel with the specified state and image.
      * @param state State to initialize with.
-     * @param image Image to iniitalize with.
+     * @param image Image to initialize with.
      */
     public BrickModel(State state, Image image) {
         this.state = state;
@@ -78,7 +76,7 @@ public class BrickModel {
     /**
      * Initializes a new instance of this BrickModel with the specified image,
      * state initialized to FACE_DOWN.
-     * @param image Image to iniitalize with.
+     * @param image Image to initialize with.
      */
     public BrickModel(Image image) {
         this(State.FACE_DOWN, image);

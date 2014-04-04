@@ -3,7 +3,6 @@ package com.sharparam.sharpmemory.controllers;
 import com.sharparam.sharpmemory.Difficulty;
 import com.sharparam.sharpmemory.SharpMemory;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
@@ -12,8 +11,6 @@ import javafx.scene.control.ToggleGroup;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Controller for the menu view.
@@ -72,10 +69,9 @@ public class MenuController implements Initializable {
 
     /**
      * Handler method for when the start button is pressed.
-     * @param event Action event.
      */
     @FXML
-    protected void handleStartButtonAction(ActionEvent event) {
+    protected void handleStartButtonAction() {
         // This might be a dirty hack, but it achieves what we want.
         // We set the difficulty field on the main Application class through
         // a setter method before switching to the game view.
@@ -85,10 +81,9 @@ public class MenuController implements Initializable {
 
     /**
      * Handler method for when the quit button is pressed.
-     * @param event Action event.
      */
     @FXML
-    protected void handleQuitButtonAction(ActionEvent event) {
+    protected void handleQuitButtonAction() {
         Platform.exit();
     }
 }

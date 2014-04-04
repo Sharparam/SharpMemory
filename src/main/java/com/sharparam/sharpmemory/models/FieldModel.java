@@ -51,7 +51,7 @@ public class FieldModel {
     /**
      * The bricks that are on this field.
      */
-    private BrickModel[] bricks;
+    private final BrickModel[] bricks;
 
     /**
      * True if the user has just flipped two bricks and the system is waiting for the
