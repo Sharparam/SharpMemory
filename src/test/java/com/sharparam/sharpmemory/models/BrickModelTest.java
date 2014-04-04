@@ -2,18 +2,26 @@ package com.sharparam.sharpmemory.models;
 
 import com.sharparam.sharpmemory.State;
 import com.sharparam.sharpmemory.tests.helpers.JavaFXTester;
+import com.sharparam.sharpmemory.tests.rules.JavaFXThreadingRule;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /**
  * Created by on 2014-03-27.
  *
  * @author Sharparam
  */
+@RunWith(JUnit4.class)
 public class BrickModelTest extends JavaFXTester {
+    @Rule
+    private JavaFXThreadingRule javaFXThreadingRule = new JavaFXThreadingRule();
+
     private BrickModel downBrick;
     private BrickModel upBrick;
     private BrickModel clearedBrick;
