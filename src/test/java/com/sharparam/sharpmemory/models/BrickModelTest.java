@@ -94,10 +94,8 @@ public class BrickModelTest extends JavaFXTester {
     @Test
     public void testGetImageView() throws Exception {
         Image image = new Image("/images/test.png");
-        ImageView imageView = new ImageView(image);
         BrickModel brick = new BrickModel(image);
         brick.faceUp();
-        Image brickImage = brick.getImage();
         ImageView brickImageView = brick.getImageView();
         Assert.assertEquals("Expected correct image on ImageView", image, brickImageView.getImage());
     }
