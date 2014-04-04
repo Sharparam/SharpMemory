@@ -1,6 +1,8 @@
 package com.sharparam.sharpmemory.helpers;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /**
  * Tests for {@link com.sharparam.sharpmemory.helpers.BrickHelper}.
@@ -9,6 +11,7 @@ import org.junit.Test;
  *
  * @author Sharparam
  */
+@RunWith(JUnit4.class)
 public class BrickHelperTest {
     @Test
     public void testGetImage() throws Exception {
