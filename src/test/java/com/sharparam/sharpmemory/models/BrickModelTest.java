@@ -13,7 +13,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 /**
- * Created by on 2014-03-27.
+ * Tests for {@link com.sharparam.sharpmemory.models.BrickModel}
+ *
+ * Created on 2014-03-27.
  *
  * @author Sharparam
  */
