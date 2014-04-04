@@ -1,5 +1,6 @@
 SharpMemory
 ===========
+[![Build Status](https://travis-ci.org/Sharparam/SharpMemory.svg?branch=master)](https://travis-ci.org/Sharparam/SharpMemory)
 
 A simple memory game made in Java (with JavaFX) for a school assignment.
 
