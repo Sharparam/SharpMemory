@@ -53,8 +53,8 @@ public class BrickModel {
     public BrickModel(State state, Image image) {
         this.state = state;
         faceUpImage = image;
-        this.image = image;
-        imageView = BrickHelper.createImageView(FACE_DOWN_IMAGE);
+        imageView = new ImageView();
+        updateImage();
     }
 
     /**
@@ -107,6 +107,14 @@ public class BrickModel {
      */
     public static Image getFaceDownImage() {
         return FACE_DOWN_IMAGE;
+    }
+
+    /**
+     * Gets the image used when brick is cleared.
+     * @return Image object for cleared state.
+     */
+    public static Image getClearedImage() {
+        return CLEARED_IMAGE;
     }
 
     /**
