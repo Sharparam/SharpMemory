@@ -8,6 +8,11 @@
     <artifactId>SharpMemory</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
     <name>SharpMemory</name>
     <description>Memory game in Java made for school project</description>
     <url>https://github.com/Sharparam/SharpMemory</url>
