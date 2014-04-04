@@ -1,7 +1,6 @@
 package com.sharparam.sharpmemory.models;
 
 import com.sharparam.sharpmemory.State;
-import com.sharparam.sharpmemory.tests.helpers.JavaFXTester;
 import com.sharparam.sharpmemory.tests.rules.JavaFXThreadingRule;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,9 +19,9 @@ import org.junit.runners.JUnit4;
  * @author Sharparam
  */
 @RunWith(JUnit4.class)
-public class BrickModelTest extends JavaFXTester {
+public class BrickModelTest /*extends JavaFXTester*/ {
     @Rule
-    private JavaFXThreadingRule javaFXThreadingRule = new JavaFXThreadingRule();
+    public JavaFXThreadingRule javaFXThreadingRule = new JavaFXThreadingRule();
 
     private BrickModel downBrick;
     private BrickModel upBrick;
