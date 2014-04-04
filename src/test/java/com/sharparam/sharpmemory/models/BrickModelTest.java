@@ -19,7 +19,7 @@ import org.junit.runners.JUnit4;
  * @author Sharparam
  */
 @RunWith(JUnit4.class)
-public class BrickModelTest /*extends JavaFXTester*/ {
+public class BrickModelTest {
     @Rule
     public JavaFXThreadingRule javaFXThreadingRule = new JavaFXThreadingRule();
 
