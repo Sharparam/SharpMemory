@@ -16,7 +16,7 @@ public class BrickModel {
     /**
      * Image used when brick is faced down.
      */
-    private static final Image FACE_DOWN_IMAGE = BrickHelper.getImage("http://placehold.it/64x64");
+    private static final Image FACE_DOWN_IMAGE = BrickHelper.getImage("/images/back.png");
 
     /**
      * Image used when brick is cleared.
